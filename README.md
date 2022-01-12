@@ -1,30 +1,93 @@
-## Week 6
+## Week 8 Final Exam
 
-You have been asked to sort a series of timestamps into chronological order from earliest to latest. The timestamps are supplied in a text file as strings in the following format: “dd/mm/yyyy-hh:mm:ss” e.g.  29/11/2021-15:33:56
+### Part A Vaccination Tracker
 
-### Question 1
-Write a program which takes the name of the text file as input and produces an output file with the sorted timestamps.
-Your program should:
-       
-   1. Prompt the user for the names of the input and output files and store for later use. If the input file does not exist, display an error message and re-prompt.
-       
-   2. Read in the series of strings from the text file and store these in an array of strings.
-       
-   3. Sort the array alphabetically using the bubble sort algorithm.
-       
-   4. Write the sorted array to the output file and comment on the results.
+We are in the middle of a global pandemic. The dean of a university has asked you to write a program (using the C programming language) to track how many of the students and staff are vaccinated and with which vaccine. A person’s record includes their name, date of birth, student or staff ID, a list of any underlying health conditions, the vaccine vendors and the dates for each vaccine. Two examples of formatted records could look like this:
+
+1.
++ Name: John Smith
++ Vaccine vendor: Pfizer
++ Vaccination date: 02/08/2021
++ Date of birth: 06/01/1990
++ Underlying condition: None
++ Student/Staff ID: 556679
+
+2.
++ Name: Mary Jones
++ Vaccine vendor: None
++ Vaccination date: None
++ Date of birth: 09/10/1988
++ Underlying condition: Asthma
++ Student/Staff ID: 556677
+
+Students can assume that privacy law does not apply in this case.
+
+Making use of techniques covered in the course material: functions, file handling, dynamic memory allocation, data structures and sorting algorithms, produce a system with the following functions (named exactly as provided below).
+
+Function 1: load_data 
+
+This function is automatically called when the program is started. It loads a list of records from a file called “records.txt” (the user is not required to input the file name).  If the file does not exist, notify the user, create a new file and display the main menu. Once the file is open, data is read into an array of structs by dynamically creating sufficient memory for each entry read from the file.
+
+Function 2: display_menu
+
+After the application has started, use this function to print a series of options to the user using a numbered list (see below). When the user selects an option, the system performs the required action, and then returns to the menu, waiting for the user to select another option. Include an option to exit the system.
+
+Your main menu system might resemble the following:
+1.	Add a new person
+2.	View vaccination status for all students and staff
+3.	Modify existing record
+4.	Sort vaccinated people by name
+5.	Sort unvaccinated people by name
+6.	Sort vaccinated people by date
+7.	Display percentage of unvaccinated people 
+8.	Display a list of people with an underlying condition older than 65 
+9.	Exit
+
+Function 3: add_new_record
+
+When the user selects the “1. Add a new person” menu item, prompt them for the data for the new record. Append the new record to the array of current records and notify the user that the new record has been added successfully. 
+
+Function 4: view_all_records
+
+When the user selects the “2. View vaccination status for all students and staff” option, this function prints a list of all employees and their information on record. Make sure that the information is formatted neatly with headers and appropriate tabs or spacing, not simply a list of raw information. 
+
+Function 5: modify_record
+
+When the user selects the “3. Modify existing record” option, they are prompted for an ID. This function then finds the relevant record and prompts the user for the updated details, which should replace the existing record details.
+
+Function 6: sort_vaccinated_by_name
+
+When the user selects the “4. Sort vaccinated people by name” option, this function prints a list of the names of people who have been vaccinated with two doses. This list should be sorted by the last name.
+
+Function 7: sort_unvaccinated_by_name
+
+When the user selects the “5. Sort unvaccinated people by name” option, this function prints a list of the names of people who have not had any doses of vaccine. This list should be sorted by the last name.
+
+Function 8: sort_vaccinated_by_date
+
+When the user selects the “6. Sort vaccinated people by date” option, this function prints a list of the names of people who have been vaccinated. This list should include the date of the most recent vaccine dose presented in the following format “yyyy/mm/dd” and be ordered from most recent to least recent.
+
+Function 9: display_percent_unvaccinated
+
+When the user selects the “7. Display percentage of unvaccinated people” option, this function shows the percentage of unvaccinated people formatted to 2 decimal places, along with an appropriate message.
+
+Function 10: display_seniors_with_condition
+
+When the user selects the “8. Display a list of people with an underlying condition older than 65” option, this function prints a list of the names of people over the age of 65 with any underlying health condition. This list should include the date of birth of the person, their underlying condition and be ordered from oldest to youngest.
+
+Function 11: save_data
+
+This function is called when the user chooses to exit the system. Open the data file and write out the information currently contained in the array. 
 
 
-### Question 2
-Develop a special function to convert the timestamps into something that can be sorted from earliest to latest based on a numerical value rather than alphabetical. Re-write your program in a new file with the same functionality as above, along with the following enhancements:
+Part B - Modification 								
 
-1. The array of strings should be allocated dynamically to minimise the amount of memory used.
-2. Create a function called timeStampToSeconds() that converts a timestamp string to a long int, which represents the number of seconds elapsed since 01/01/2000 00:00:00.
+Improve your program by allowing for storage of up to two vaccination vendors and dates to represent the standard two doses that each adult would be expected to receive. Dates should be stored as integer values representing the number of days that have passed since the 1st of January 2000. E.g. 03/12/21 would be 8007 days since 01/01/00. Your modified program should accept the date as a string in the format “dd/mm/yy” and parse the string to create an int representing the number of days. When the stored dates are required to be displayed on screen they should be converted back to a format that allows them to be displayed as “dd/mm/yy”.
 
-   Your code will need to check that each character is a valid number between 0 and 9, ignoring formatting characters ('/', ' ', ':', '-') and convert the characters to their equivalent integers before being used to calculate the number of seconds elapsed since the above starting point.
+Now that booster doses of vaccines are being administered, further modify the system to include details of the booster vendor and booster date in the records.
 
-3. Sort the string array using the timeStampToSeconds() function and any suitable sort algorithm. Write the sorted array to the output file and compare with the output file from question 1. Comment on the results.
-4. Loop through the array and find timestamps from the year 2016.
-5. Display on screen a list of only those timestamps that come from the year 2016.
+Add new menu items to the main menu to allow the user to access these new record details. 
 
-Note: For the purposes of this assignment the number of days per year can be taken as 365.25 with 31,557,600 seconds per year.
+Note: Produce a separate code file to Part A. It should contain all the functionality of Part A, but with appropriate changes relating to the vaccine and booster details. 
+
+
